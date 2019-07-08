@@ -1,4 +1,5 @@
 import React from 'react';
+// Any icon library allowed in project
 import { Ionicons } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
