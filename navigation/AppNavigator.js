@@ -1,10 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import { Button, Text, View, Platform } from 'react-native'
+import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+
+// Icons
+import Ionicons from "react-native-vector-icons/Ionicons";
+
+// Screens
 import HomeScreen from '../screens/HomeScreen'
 import DetailScreen from '../screens/DetailScreen'
 import SearchScreen from '../screens/SearchScreen'
+
 
 const AppNavigator = createStackNavigator({
     Home: {
@@ -30,6 +36,14 @@ const AppNavigator = createStackNavigator({
         })
     }
 })
+
+
+// const TabNavigator = createBottomTabNavigator(
+//     {
+//         Home: AppNavigator,
+//     }
+// );
+
 
 const AppContainer = createAppContainer(AppNavigator)
 

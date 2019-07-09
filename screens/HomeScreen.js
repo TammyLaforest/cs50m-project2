@@ -1,12 +1,31 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { StyleSheet, View, Text } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
+
+
+
+// Screens
+// import HomeScreen from '../screens/HomeScreen'
+import DetailScreen from '../screens/DetailScreen'
+import SearchScreen from '../screens/SearchScreen'
+
 
 export default class HomeScreen extends React.Component {
     render() {
         return (
             < View style={styles.appContainer} >
                 <Text>Hello, HomeScreen!!!</Text>
+                <Button
+                    title="Go to Detail View"
+                    onPress={() => this.props.navigation.navigate('Detail', {
+                        itemId: 86,
+                        otherParam: 'anything you want here',
+                    })}
+                />
+                <Button
+                    title="Go back"
+                    onPress={() => this.props.navigation.goBack()}
+                />
             </View >
 
         )
