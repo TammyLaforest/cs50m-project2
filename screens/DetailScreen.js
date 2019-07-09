@@ -4,18 +4,21 @@ import { Button, StyleSheet, View, Text } from 'react-native'
 
 
 export default class DetailScreen extends React.Component {
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = ({ navigation, navigationOptions }) => {
+        const { params } = navigation.state;
+
         return {
-            title: navigation.getParam('otherParam', 'A Nested Details Screen'),
+            title: params ? params.otherParam : 'A Nested Details Screen',
+            /* These values are used instead of the shared configuration! */
             headerStyle: {
-                backgroundColor: '#f4511e',
+                backgroundColor: navigationOptions.headerTintColor,
             },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-                fontWeight: 'bold',
-            },
+            headerTintColor: navigationOptions.headerStyle.backgroundColor,
         };
-    }
+    };
+
+    /* render function, etc */
+
     render() {
         return (
             < View style={styles.appContainer} >

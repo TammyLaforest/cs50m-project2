@@ -26,14 +26,6 @@ export default class HomeScreen extends React.Component {
                         otherParam: 'anything you want here',
                     })}
                 />
-                <Button
-                    title="Go back"
-                    onPress={() => this.props.navigation.goBack()}
-                />
-                <Button
-                    title="Update the title"
-                    onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
-                />
             </View >
 
         )

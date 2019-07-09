@@ -24,8 +24,8 @@ const AppNavigator = createStackNavigator(
         },
         Detail: {
             screen: DetailScreen,
-            navigationOptions: () => ({
-                // title: `Detail View`,
+            navigationOptions: ({ navigation }) => ({
+                title: navigation.getParam('otherParam', 'A Nested Details Screen'),
                 headerBackTitle: null
             }),
         },
@@ -48,6 +48,11 @@ const AppNavigator = createStackNavigator(
                 fontWeight: 'bold',
             }
         }
+    },
+    {
+        navigationOptions: {
+            tabBarLabel: 'JimmyJames!',
+        },
     }
 )
 
