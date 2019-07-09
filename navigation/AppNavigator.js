@@ -12,30 +12,44 @@ import DetailScreen from '../screens/DetailScreen'
 import SearchScreen from '../screens/SearchScreen'
 
 
-const AppNavigator = createStackNavigator({
-    Home: {
-        screen: HomeScreen,
-        navigationOptions: () => ({
-            title: `Home`,
-            headerBackTitle: null,
-            headerRight: <Text>"hey"</Text>
-        }),
+const AppNavigator = createStackNavigator(
+    {
+        Home: {
+            screen: HomeScreen,
+            navigationOptions: () => ({
+                // title: `John`,
+                headerBackTitle: null,
+                headerRight: <Text>"hey"</Text>
+            }),
+        },
+        Detail: {
+            screen: DetailScreen,
+            navigationOptions: () => ({
+                // title: `Detail View`,
+                headerBackTitle: null
+            }),
+        },
+        Search: {
+            screen: SearchScreen,
+            navigationOptions: () => ({
+                title: `Search View`,
+                headerBackTitle: null
+            })
+        }
     },
-    Detail: {
-        screen: DetailScreen,
-        navigationOptions: () => ({
-            title: `Detail View`,
-            headerBackTitle: null
-        }),
-    },
-    Search: {
-        screen: SearchScreen,
-        navigationOptions: () => ({
-            title: `Search View`,
-            headerBackTitle: null
-        })
+    {
+        initialRouteName: 'Home',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            }
+        }
     }
-})
+)
 
 
 // const TabNavigator = createBottomTabNavigator(

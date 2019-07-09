@@ -11,6 +11,10 @@ import SearchScreen from '../screens/SearchScreen'
 
 
 export default class HomeScreen extends React.Component {
+    static navigationOptions = {
+        title: 'Home',
+    };
+
     render() {
         return (
             < View style={styles.appContainer} >
@@ -25,6 +29,10 @@ export default class HomeScreen extends React.Component {
                 <Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
+                />
+                <Button
+                    title="Update the title"
+                    onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
                 />
             </View >
 

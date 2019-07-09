@@ -4,7 +4,18 @@ import { Button, StyleSheet, View, Text } from 'react-native'
 
 
 export default class DetailScreen extends React.Component {
-
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: navigation.getParam('otherParam', 'A Nested Details Screen'),
+            headerStyle: {
+                backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            },
+        };
+    }
     render() {
         return (
             < View style={styles.appContainer} >
@@ -18,6 +29,10 @@ export default class DetailScreen extends React.Component {
                 <Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
+                />
+                <Button
+                    title="Update the title"
+                    onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
                 />
             </View >
         )
