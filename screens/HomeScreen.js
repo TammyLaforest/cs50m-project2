@@ -13,7 +13,6 @@ export default class HomeScreen extends React.Component {
     }
 }
 
-
 const styles = StyleSheet.create({
     appContainer: {
         flex: 1,
