@@ -1,1 +1,0 @@
-AppNavigator.web.js can I delete?
