@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Text, View, Platform } from 'react-native'
+import { Button, Platform, Text, View } from 'react-native'
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 // Icons
@@ -11,6 +11,11 @@ import DetailScreen from '../screens/DetailScreen'
 import SearchScreen from '../screens/SearchScreen'
 import ResultsScreen from '../screens/ResultsScreen'
 
+const config = Platform.select({
+    web: { headerMode: 'screen' },
+    default: {},
+});
+
 const HomeStack = createStackNavigator(
     {
         Home: {
@@ -21,6 +26,7 @@ const HomeStack = createStackNavigator(
             })
         }
     },
+    config,
 
     {
         initialRouteName: 'Home',
@@ -33,7 +39,8 @@ const HomeStack = createStackNavigator(
                 fontWeight: 'bold',
             }
         }
-    }
+    },
+
 )
 
 
