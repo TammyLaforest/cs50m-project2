@@ -11,13 +11,20 @@ export default class HomeScreen extends React.Component {
     render() {
         return (
             < View style={styles.appContainer} >
-                <Button
-                    title="Go to Search"
-                    onPress={() => this.props.navigation.navigate('Search', {
-                        itemId: 86,
-                        otherParam: 'anything you want here',
-                    })}
-                />
+
+                <View>
+                    <Text style={styles.title}>Homepage here!</Text>
+
+                </View>
+                <View style={styles.searchBox}>
+                    <Button
+                        title="Go to Search"
+                        onPress={() => this.props.navigation.navigate('Search', {
+                            itemId: 86,
+                            otherParam: 'anything you want here',
+                        })}
+                    />
+                </View>
 
             </View >
 
@@ -30,5 +37,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#ddd',
         paddingTop: Constants.statusBarHeight,
+    },
+    title: {
+        fontSize: 40,
+        textAlign: 'center'
+    },
+    searchBox: {
+        marginTop: 25,
+        borderRadius: 4,
+        borderWidth: 1,
+        borderColor: 'black',
     }
 })

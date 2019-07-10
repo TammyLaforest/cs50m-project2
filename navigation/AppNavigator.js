@@ -2,7 +2,6 @@ import React from 'react'
 import { Button, Text, View, Platform } from 'react-native'
 import { createAppContainer, createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
-
 // Icons
 import Ionicons from "react-native-vector-icons/Ionicons";
 
@@ -74,20 +73,40 @@ const SearchStack = createStackNavigator(
             }
         }
     },
-
-
 )
-
 
 const AppContainer = createAppContainer(createBottomTabNavigator(
     {
         Home: HomeStack,
         Search: SearchStack
     },
-    // {
-    //     backBehavior: 'none'
-    // }
-)
-)
+    {
+        defaultNavigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) =>
+                getTabBarIcon(navigation, focused, tintColor),
+        }),
+        tabBarOptions: {
+            activeTintColor: 'tomato',
+            inactiveTintColor: 'gray',
+        }
+    }
+))
+
+const getTabBarIcon = (navigation, focused, tintColor) => {
+    const { routeName } = navigation.state;
+    let IconComponent = Ionicons;
+    let iconName;
+    if (routeName === 'Home') {
+        iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+
+    } else if (routeName === 'Search' || routeName === 'Detail' || routeName === 'Results') {
+        iconName = `ios-search`;
+    }
+
+    // You can return any component that you like here!
+    return <IconComponent name={iconName} size={25} color={tintColor} />;
+};
+
+
 
 export default AppContainer
