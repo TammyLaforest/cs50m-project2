@@ -12,7 +12,7 @@ import DetailScreen from '../screens/DetailScreen'
 import SearchScreen from '../screens/SearchScreen'
 import ResultsScreen from '../screens/ResultsScreen'
 
-const AppNavigator = createStackNavigator(
+const HomeStack = createStackNavigator(
     {
         Home: {
             screen: HomeScreen,
@@ -22,6 +22,39 @@ const AppNavigator = createStackNavigator(
                 headerRight: <Text>"hey"</Text>
             }),
         },
+        Search: {
+            screen: SearchScreen,
+            navigationOptions: () => ({
+                title: `Search View`,
+                headerBackTitle: null
+            })
+        },
+
+
+    },
+
+    {
+        initialRouteName: 'Home',
+        defaultNavigationOptions: {
+            headerStyle: {
+                backgroundColor: '#f4511e',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                fontWeight: 'bold',
+            }
+        }
+    },
+    {
+        navigationOptions: {
+            tabBarLabel: 'JimmyJames!',
+        },
+    }
+)
+
+
+const SearchStack = createStackNavigator(
+    {
         Search: {
             screen: SearchScreen,
             navigationOptions: () => ({
@@ -47,7 +80,7 @@ const AppNavigator = createStackNavigator(
         }
     },
     {
-        initialRouteName: 'Home',
+        initialRouteName: 'Search',
         defaultNavigationOptions: {
             headerStyle: {
                 backgroundColor: '#f4511e',
@@ -60,19 +93,17 @@ const AppNavigator = createStackNavigator(
     },
     {
         navigationOptions: {
-            tabBarLabel: 'JimmyJames!',
+            tabBarLabel: 'JimmyJohn!',
         },
     }
 )
 
 
-// const TabNavigator = createBottomTabNavigator(
-//     {
-//         Home: AppNavigator,
-//     }
-// );
-
-
-const AppContainer = createAppContainer(AppNavigator)
+const AppContainer = createAppContainer(createBottomTabNavigator(
+    {
+        Home: HomeStack,
+        Search: SearchStack
+    })
+)
 
 export default AppContainer
