@@ -17,20 +17,10 @@ const HomeStack = createStackNavigator(
         Home: {
             screen: HomeScreen,
             navigationOptions: () => ({
-                // title: `John`,
+                title: `Welcome`,
                 headerBackTitle: null,
-                headerRight: <Text>"hey"</Text>
-            }),
-        },
-        Search: {
-            screen: SearchScreen,
-            navigationOptions: () => ({
-                title: `Search View`,
-                headerBackTitle: null
             })
-        },
-
-
+        }
     },
 
     {
@@ -44,11 +34,6 @@ const HomeStack = createStackNavigator(
                 fontWeight: 'bold',
             }
         }
-    },
-    {
-        navigationOptions: {
-            tabBarLabel: 'JimmyJames!',
-        },
     }
 )
 
@@ -66,11 +51,9 @@ const SearchStack = createStackNavigator(
             screen: ResultsScreen,
             navigationOptions: () => ({
                 title: `Search Results`,
-                headerBackTitle: null,
-                headerRight: <Text>"hey"</Text>
+                headerBackTitle: null
             }),
         },
-
         Detail: {
             screen: DetailScreen,
             navigationOptions: ({ navigation }) => ({
@@ -91,11 +74,8 @@ const SearchStack = createStackNavigator(
             }
         }
     },
-    {
-        navigationOptions: {
-            tabBarLabel: 'JimmyJohn!',
-        },
-    }
+
+
 )
 
 
@@ -103,7 +83,11 @@ const AppContainer = createAppContainer(createBottomTabNavigator(
     {
         Home: HomeStack,
         Search: SearchStack
-    })
+    },
+    // {
+    //     backBehavior: 'none'
+    // }
+)
 )
 
 export default AppContainer

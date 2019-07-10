@@ -9,7 +9,6 @@ import SearchScreen from '../screens/SearchScreen'
 import ResultsScreen from '../screens/ResultsScreen'
 
 // Icons
-// You can import Ionicons from @expo/vector-icons if you use Expo or
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 
@@ -26,14 +25,10 @@ export default createAppContainer(createBottomTabNavigator(
                 let iconName;
                 if (routeName === 'Home') {
                     iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-                    // Sometimes we want to add badges to some icons. 
-                    // You can check the implementation below.
                     IconComponent = HomeIconWithBadge;
-                } else if (routeName === 'Settings') {
+                } else if (routeName === 'Search' || routeName === 'Details' || routeName === 'Results') {
                     iconName = `ios-options`;
                 }
-
-                // You can return any component that you like here!
                 return <IconComponent name={iconName} size={25} color={tintColor} />;
             },
         }),
