@@ -10,7 +10,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import HomeScreen from '../screens/HomeScreen'
 import DetailScreen from '../screens/DetailScreen'
 import SearchScreen from '../screens/SearchScreen'
-
+import ResultsScreen from '../screens/ResultsScreen'
 
 const AppNavigator = createStackNavigator(
     {
@@ -22,19 +22,28 @@ const AppNavigator = createStackNavigator(
                 headerRight: <Text>"hey"</Text>
             }),
         },
-        Detail: {
-            screen: DetailScreen,
-            navigationOptions: ({ navigation }) => ({
-                title: navigation.getParam('otherParam', 'A Nested Details Screen'),
-                headerBackTitle: null
-            }),
-        },
         Search: {
             screen: SearchScreen,
             navigationOptions: () => ({
                 title: `Search View`,
                 headerBackTitle: null
             })
+        },
+        Results: {
+            screen: ResultsScreen,
+            navigationOptions: () => ({
+                title: `Search Results`,
+                headerBackTitle: null,
+                headerRight: <Text>"hey"</Text>
+            }),
+        },
+
+        Detail: {
+            screen: DetailScreen,
+            navigationOptions: ({ navigation }) => ({
+                title: navigation.getParam('otherParam', 'A Nested Details Screen'),
+                headerBackTitle: null
+            }),
         }
     },
     {

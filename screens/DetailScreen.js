@@ -25,10 +25,7 @@ export default class DetailScreen extends React.Component {
                 <Text>Hello, DetailScreen!!!</Text>
                 <Text>itemId: {JSON.stringify(this.props.navigation.getParam('itemId', 'NO-ID'))}</Text>
                 <Text>otherParam: {JSON.stringify(this.props.navigation.getParam('otherParam', 'some default value'))}</Text>
-                <Button
-                    title="Go to Home"
-                    onPress={() => this.props.navigation.navigate('Home')}
-                />
+
                 <Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
@@ -37,6 +34,7 @@ export default class DetailScreen extends React.Component {
                     title="Update the title"
                     onPress={() => this.props.navigation.setParams({ otherParam: 'Updated!' })}
                 />
+
             </View >
         )
     }

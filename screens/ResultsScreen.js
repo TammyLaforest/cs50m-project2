@@ -3,23 +3,24 @@ import Constants from 'expo-constants'
 import { Button, StyleSheet, Text, View } from 'react-native'
 
 
-export default class HomeScreen extends React.Component {
+export default class ResultsScreen extends React.Component {
     static navigationOptions = {
-        title: 'Welcome',
+        title: 'Search Results',
     };
 
     render() {
         return (
             < View style={styles.appContainer} >
+                <Text>Hello, ResultsScreen!!!</Text>
                 <Button
-                    title="Go to Search"
-                    onPress={() => this.props.navigation.navigate('Search', {
-                        itemId: 86,
-                        otherParam: 'anything you want here',
-                    })}
+                    title="Go to Detail View"
+                    onPress={() => this.props.navigation.navigate('Detail')}
                 />
-
-            </View >
+                <Button
+                    title="Go back"
+                    onPress={() => this.props.navigation.goBack()}
+                />
+            </View>
 
         )
     }
