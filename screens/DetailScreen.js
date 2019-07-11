@@ -4,6 +4,9 @@ import { Button, StyleSheet, View, Text } from 'react-native'
 
 
 export default class DetailScreen extends React.Component {
+    constructor(props) {
+        super(props)
+    }
     static navigationOptions = ({ navigation, navigationOptions }) => {
         const { params } = navigation.state;
 
@@ -22,8 +25,9 @@ export default class DetailScreen extends React.Component {
     render() {
         return (
             < View style={styles.appContainer} >
-                <Text>Hello, DetailScreen!!!</Text>
-                <Text>itemId: {JSON.stringify(this.props.navigation.getParam('itemId', 'NO-ID'))}</Text>
+                {<Text>`Hello, DetailScreen!!! ${this.props.title}`</Text>}
+
+                <Text>URL: {JSON.stringify(this.props.navigation.getParam('itemId', 'NO-ID'))}</Text>
                 <Text>otherParam: {JSON.stringify(this.props.navigation.getParam('otherParam', 'some default value'))}</Text>
 
                 <Button
