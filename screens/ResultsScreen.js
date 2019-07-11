@@ -1,7 +1,7 @@
 import React from 'react'
 import Constants from 'expo-constants'
 import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-// import console = require('console');
+
 
 const processTitle = movie => ({
     title: movie.Title,
@@ -19,7 +19,8 @@ const callApiPages = async (url) => {
         const { Search } = await response.json()
         const results = Search.map(movie => processTitle(movie))
         return results
-    } catch {
+    } catch (err) {
+        this.setState({ err: err.message })
         console.log('nope')
     }
 }
@@ -38,9 +39,11 @@ const callApi = async (url) => {
             searchResults = c
         }
         return searchResults
-    } catch {
+    } catch (err) {
+        this.setState({ err: err.message })
         console.log('no soup for you')
     }
+
 }
 export default class ResultsScreen extends React.Component {
     constructor(props) {
@@ -48,10 +51,6 @@ export default class ResultsScreen extends React.Component {
         this.state = {
             err: '',
             results: [],
-            resultsActive: false,
-            processed: "",
-            detailTitle: "",
-            detailTitleUrl: "",
             pages: 0
         }
     }
@@ -100,8 +99,8 @@ export default class ResultsScreen extends React.Component {
         return (
             // ScrollView is slow loading. How can I improve this?
             < ScrollView style={styles.appContainer} >
-                <Text>{this.state.err}</Text>
-                <Text>Search: {JSON.stringify(this.props.navigation.getParam('search', 'no-search'))}</Text>
+                <Text style={styles.error}>{this.state.err}</Text>
+                <Text style={styles.search}>Search: {JSON.stringify(this.props.navigation.getParam('search', 'no-search'))}</Text>
                 {items}
 
                 <Button
@@ -117,8 +116,15 @@ export default class ResultsScreen extends React.Component {
 const styles = StyleSheet.create({
     appContainer: {
         flex: 1,
-        backgroundColor: '#ddd',
+        backgroundColor: '#eee',
         paddingTop: Constants.statusBarHeight,
+    },
+    search: {
+        fontSize: 30,
+        paddingBottom: 10
+    },
+    error: {
+        color: 'red'
     },
     eachMovie: {
         fontSize: 12,

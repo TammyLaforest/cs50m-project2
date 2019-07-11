@@ -39,9 +39,7 @@ const HomeStack = createStackNavigator(
             }
         }
     },
-
 )
-
 
 const SearchStack = createStackNavigator(
     {
@@ -98,20 +96,16 @@ const AppContainer = createAppContainer(createBottomTabNavigator(
 ))
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
-    const { routeName } = navigation.state;
-    let IconComponent = Ionicons;
-    let iconName;
+    const { routeName } = navigation.state
+    let IconComponent = Ionicons
+    let iconName
     if (routeName === 'Home') {
-        iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        iconName = `ios-information-circle${focused ? '' : '-outline'}`
 
     } else if (routeName === 'Search' || routeName === 'Detail' || routeName === 'Results') {
-        iconName = `ios-search`;
+        iconName = `ios-search`
     }
-
-    // You can return any component that you like here!
-    return <IconComponent name={iconName} size={25} color={tintColor} />;
-};
-
-
+    return <IconComponent name={iconName} size={25} color={tintColor} />
+}
 
 export default AppContainer

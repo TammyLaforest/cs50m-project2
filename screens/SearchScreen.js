@@ -1,10 +1,9 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { Button, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler';
-// import console = require('console');
+import { Button, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 
-
+let apiKey = '58e46ddd'
+// let apiKey = [apiKey]
 
 export default class SearchScreen extends React.Component {
     constructor(props) {
@@ -13,15 +12,22 @@ export default class SearchScreen extends React.Component {
             search: '',
             isFormValid: false,
             apiUrl: 'http://www.omdbapi.com/?apikey=${apiKey}&',
-
         }
     }
 
     handleTextChange = search => {
-        this.setState({
-            search,
-            isFormValid: true
-        })
+        if (search.length > 0) {
+            this.setState({
+                search,
+                isFormValid: true
+            })
+        }
+        else {
+            this.setState({
+                search,
+                isFormValid: false
+            })
+        }
     }
 
     handleSubmit = () => {
@@ -39,7 +45,7 @@ export default class SearchScreen extends React.Component {
 
     render() {
         return (
-            < View style={styles.appContainer} >
+            <View style={styles.appContainer} >
                 <KeyboardAvoidingView behavior="padding">
                     <TextInput
                         style={styles.input}
@@ -47,7 +53,7 @@ export default class SearchScreen extends React.Component {
                         value={this.state.search}
                         onChangeText={this.handleTextChange}
                         autoCapitalize="words"
-                        clearButtonMode="while-editing"
+                        clearButtonMode="always"
                     />
                     <Button title="Submit" onPress={this.handleSubmit} disabled={!this.state.isFormValid} />
                 </KeyboardAvoidingView>
@@ -59,9 +65,10 @@ export default class SearchScreen extends React.Component {
 const styles = StyleSheet.create({
     appContainer: {
         flex: 1,
-        backgroundColor: '#bbb',
+        backgroundColor: '#eee',
         paddingTop: Constants.statusBarHeight,
-        alignContent: 'center'
+        alignContent: 'center',
+        justifyContent: 'center'
     },
     input: {
         borderWidth: 1,
