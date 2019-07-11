@@ -4,7 +4,8 @@ import { Button, KeyboardAvoidingView, StyleSheet, Text, View } from 'react-nati
 import { TextInput } from 'react-native-gesture-handler';
 // import console = require('console');
 
-let apiKey = 
+
+// let apiKey = [apiKey]
 
 export default class SearchScreen extends React.Component {
     constructor(props) {
@@ -36,6 +37,7 @@ export default class SearchScreen extends React.Component {
             })
         )
     }
+
     render() {
         return (
             < View style={styles.appContainer} >

@@ -7,6 +7,7 @@ const processTitle = movie => ({
     title: movie.Title,
     type: movie.Type,
     year: movie.Year,
+    imdb: movie.imdbID
 })
 // Sister Act has 1 page
 // Mulan has 2 pages
@@ -65,7 +66,6 @@ export default class ResultsScreen extends React.Component {
             this.setState({
                 results: results
             })
-            // console.log(this.state.results[0].title)
         }
         catch (err) {
             this.setState({ err: err.message })
@@ -76,20 +76,33 @@ export default class ResultsScreen extends React.Component {
         this.getResults()
     }
     // Refine for multiple movies of same name.
-    onSelectMovie = movie => {
-        this.props.navigation.push('DetailsScreen', movie);
-    };
+    // onSelectMovie = imdb => {
+    //     this.props.navigation.push('DetailsScreen', imdb);
+
+    //     this.props.navigation.navigate('Detail', { otherParam: this.props.title })
+    // };
+
+    onSelectMovie = (item) => {
+        this.props.navigation.navigate('Detail',
+            {
+                title: item.title,
+                type: item.type,
+                year: item.year,
+                imdb: item.imdb
+            })
+    }
 
     render() {
-
         items = this.state.results.map((item, key) =>
             <TouchableOpacity
                 style={styles.eachMovie}
                 key={key}
-                onPress={() => this.onSelectMovie(item.title)}>
+                onPress={() => this.onSelectMovie(item)}>
                 <Text>Title: {item.title}</Text>
                 <Text>Year: {item.year}</Text>
                 <Text>Type: {item.type}</Text>
+                <Text>IMDb Number: {item.imdb}</Text>
+
             </TouchableOpacity>)
         return (
             < ScrollView style={styles.appContainer} >
@@ -99,20 +112,19 @@ export default class ResultsScreen extends React.Component {
                 {items}
 
 
-                {/* <Button
+                <Button
                     title="Go to Detail View"
                     onPress={() => this.props.navigation.navigate('Detail', { itemId: this.props.apiUrl, otherParam: this.props.title })}
                 />
                 <Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
-                /> */}
+                />
             </ScrollView>
 
         )
     }
 }
-
 
 const styles = StyleSheet.create({
     appContainer: {
@@ -128,35 +140,3 @@ const styles = StyleSheet.create({
         borderColor: 'black',
     }
 })
-
-
-// Old code
-// render() {
-//     items = this.state.results.map((item, key) =>
-//         <TouchableOpacity
-//             style={styles.eachMovie}
-//             key={key}
-//             onPress={() => this.onSelectMovie(item.title)}>
-//             <Text>Title: {item.title}</Text>
-//             <Text>Year: {item.year}</Text>
-//             <Text>Type: {item.type}</Text>
-//         </TouchableOpacity>)
-//     return (
-//         < View style={styles.appContainer} >
-//             {items}
-
-//             <Text>{this.state.err}</Text>
-//             <Text>Movie Name: {JSON.stringify(this.props.navigation.getParam('movie', 'no-movie'))}</Text>
-//             <Button
-//                 title="Go to Detail View"
-//                 onPress={() => this.props.navigation.navigate('Detail', { itemId: this.props.apiUrl, otherParam: this.props.title })}
-//             />
-//             <Button
-//                 title="Go back"
-//                 onPress={() => this.props.navigation.goBack()}
-//             />
-//         </View>
-
-//     )
-// }
-// }
