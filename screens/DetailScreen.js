@@ -12,15 +12,12 @@ export default class DetailScreen extends React.Component {
 
         return {
             title: params ? params.otherParam : 'A Nested Details Screen',
-            /* These values are used instead of the shared configuration! */
             headerStyle: {
                 backgroundColor: navigationOptions.headerTintColor,
             },
             headerTintColor: navigationOptions.headerStyle.backgroundColor,
         };
     };
-
-    /* render function, etc */
 
     render() {
         return (

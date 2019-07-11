@@ -10,29 +10,29 @@ export default class SearchScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            title: '',
+            search: '',
             isFormValid: false,
             apiUrl: 'http://www.omdbapi.com/?apikey=${apiKey}&',
 
         }
     }
 
-    handleTextChange = title => {
+    handleTextChange = search => {
         this.setState({
-            title,
+            search,
             isFormValid: true
         })
     }
 
     handleSubmit = () => {
-        let cleanedTitle = this.state.title.replace(/\s/g, '+').toLowerCase()
-        let newUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${cleanedTitle}`
+        let cleanedSearch = this.state.search.replace(/\s/g, '+').toLowerCase()
+        let newUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${cleanedSearch}`
         this.setState({
             apiUrl: newUrl
         }, () => this.props.navigation.navigate('Results',
             {
                 url: this.state.apiUrl,
-                movie: this.state.title,
+                search: this.state.search,
             })
         )
     }
@@ -43,7 +43,7 @@ export default class SearchScreen extends React.Component {
                     <TextInput
                         style={styles.input}
                         placeholder="Type name of movie here"
-                        value={this.state.title}
+                        value={this.state.search}
                         onChangeText={this.handleTextChange}
                         autoCapitalize="words"
                         clearButtonMode="while-editing"
