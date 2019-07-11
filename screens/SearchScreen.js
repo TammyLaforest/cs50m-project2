@@ -5,7 +5,6 @@ import { TextInput } from 'react-native-gesture-handler';
 // import console = require('console');
 
 
-// let apiKey = [apiKey]
 
 export default class SearchScreen extends React.Component {
     constructor(props) {

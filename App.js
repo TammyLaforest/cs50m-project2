@@ -12,8 +12,6 @@ export default function App() {
   )
 }
 
-
-
 // Allow users to search for movies included in the Open Movie Database 
 // Allow users to view additional information about any movies they select
 

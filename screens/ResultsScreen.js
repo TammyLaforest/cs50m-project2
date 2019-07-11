@@ -75,12 +75,6 @@ export default class ResultsScreen extends React.Component {
     componentWillMount() {
         this.getResults()
     }
-    // Refine for multiple movies of same name.
-    // onSelectMovie = imdb => {
-    //     this.props.navigation.push('DetailsScreen', imdb);
-
-    //     this.props.navigation.navigate('Detail', { otherParam: this.props.title })
-    // };
 
     onSelectMovie = (item) => {
         this.props.navigation.navigate('Detail',
@@ -102,20 +96,14 @@ export default class ResultsScreen extends React.Component {
                 <Text>Year: {item.year}</Text>
                 <Text>Type: {item.type}</Text>
                 <Text>IMDb Number: {item.imdb}</Text>
-
             </TouchableOpacity>)
         return (
+            // ScrollView is slow loading. How can I improve this?
             < ScrollView style={styles.appContainer} >
                 <Text>{this.state.err}</Text>
                 <Text>Search: {JSON.stringify(this.props.navigation.getParam('search', 'no-search'))}</Text>
-
                 {items}
 
-
-                <Button
-                    title="Go to Detail View"
-                    onPress={() => this.props.navigation.navigate('Detail', { itemId: this.props.apiUrl, otherParam: this.props.title })}
-                />
                 <Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}

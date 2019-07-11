@@ -26,7 +26,6 @@ const HomeStack = createStackNavigator(
             })
         }
     },
-    config,
 
     {
         initialRouteName: 'Home',
@@ -63,7 +62,6 @@ const SearchStack = createStackNavigator(
         Detail: {
             screen: DetailScreen,
             navigationOptions: ({ navigation }) => ({
-                title: navigation.getParam('otherParam', 'A Nested Details Screen'),
                 headerBackTitle: null
             }),
         }
