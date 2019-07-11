@@ -13,10 +13,7 @@ export default class SearchScreen extends React.Component {
             title: '',
             isFormValid: false,
             apiUrl: 'http://www.omdbapi.com/?apikey=${apiKey}&',
-            err: '',
-            results: [],
-            resultsActive: false,
-            processed: ""
+
         }
     }
 

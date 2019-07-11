@@ -1,12 +1,12 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { Button, StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 // import console = require('console');
 
 const processTitle = movie => ({
     title: movie.Title,
-    year: movie.Type,
-    type: movie.Year,
+    type: movie.Type,
+    year: movie.Year,
 })
 
 const callApi = async (url) => {
@@ -21,6 +21,14 @@ const callApi = async (url) => {
 export default class ResultsScreen extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            err: '',
+            results: [],
+            resultsActive: false,
+            processed: "",
+            detailTitle: "",
+            detailTitleUrl: ""
+        }
     }
     static navigationOptions = {
         title: 'Search Results',
@@ -34,11 +42,8 @@ export default class ResultsScreen extends React.Component {
             })
             console.log(this.state.results[0].title)
         }
-
         catch (err) {
-            // console.log('err message results')
-            const errMessage = err.message
-            this.setState({ err: errMessage })
+            this.setState({ err: err.message })
         }
     }
 
@@ -46,17 +51,25 @@ export default class ResultsScreen extends React.Component {
         this.getResults()
     }
 
-
-
+    onSelectMovie = movie => {
+        this.props.navigation.push('DetailsScreen', movie);
+    };
 
     render() {
-
+        items = this.state.results.map((item, key) =>
+            <TouchableOpacity
+                style={styles.eachMovie}
+                key={key}
+                onPress={() => this.onSelectMovie(item.title)}>
+                <Text>Title: {item.title}</Text>
+                <Text>Year: {item.year}</Text>
+                <Text>Type: {item.type}</Text>
+            </TouchableOpacity>)
         return (
             < View style={styles.appContainer} >
-                <Text>{this.props.err}</Text>
+                {items}
 
-
-
+                <Text>{this.state.err}</Text>
                 <Text>Movie Name: {JSON.stringify(this.props.navigation.getParam('movie', 'no-movie'))}</Text>
                 <Button
                     title="Go to Detail View"
@@ -78,6 +91,13 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#ddd',
         paddingTop: Constants.statusBarHeight,
+    },
+    eachMovie: {
+        fontSize: 12,
+        padding: 5,
+        margin: 5,
+        borderWidth: 1,
+        borderColor: 'black',
     }
 })
 
