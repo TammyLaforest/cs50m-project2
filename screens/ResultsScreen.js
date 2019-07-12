@@ -1,6 +1,11 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { Button, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+
+
+// Sister Act has 1 page
+// Mulan has 2 pages
+// Batman has 37 pages
 
 
 const processTitle = movie => ({
@@ -9,9 +14,6 @@ const processTitle = movie => ({
     year: movie.Year,
     imdb: movie.imdbID
 })
-// Sister Act has 1 page
-// Mulan has 2 pages
-// Batman has 37 pages
 
 const callApiPages = async (url) => {
     try {
@@ -24,6 +26,7 @@ const callApiPages = async (url) => {
         console.log('nope')
     }
 }
+
 
 const callApi = async (url) => {
     try {
@@ -43,15 +46,26 @@ const callApi = async (url) => {
         this.setState({ err: err.message })
         console.log('no soup for you')
     }
-
 }
+
+class NoResults extends React.Component {
+    render() {
+        console.log(this.props.results)
+        if (this.props.results.length < 1) { return (<Text> No Results</Text>) }
+
+        else { return null }
+    }
+}
+
 export default class ResultsScreen extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             err: '',
             results: [],
-            pages: 0
+            pages: 0,
+            loading: true,
+            // activeResults: true
         }
     }
     static navigationOptions = {
@@ -61,7 +75,6 @@ export default class ResultsScreen extends React.Component {
         const url = this.props.navigation.getParam('url', 'No-Url')
         try {
             const results = await callApi(url)
-
             this.setState({
                 results: results
             })
@@ -71,44 +84,56 @@ export default class ResultsScreen extends React.Component {
         }
     }
 
+
+
+
     componentWillMount() {
         this.getResults()
+        this.timeout()
     }
 
-    onSelectMovie = (item) => {
-        this.props.navigation.navigate('Detail',
-            {
-                title: item.title,
-                type: item.type,
-                year: item.year,
-                imdb: item.imdb
-            })
-    }
 
+
+    timeout = () => setTimeout(() => {
+        this.setState({
+            loading: false,
+        });
+    }, 2000)
+
+    keyExtractor = (item, index) => index.toString()
+
+    onSelectMovie = (item) => this.props.navigation.navigate('Detail',
+        {
+            title: item.title,
+            type: item.type,
+            year: item.year,
+            imdb: item.imdb
+        })
     render() {
-        items = this.state.results.map((item, key) =>
-            <TouchableOpacity
-                style={styles.eachMovie}
-                key={key}
-                onPress={() => this.onSelectMovie(item)}>
-                <Text>Title: {item.title}</Text>
-                <Text>Year: {item.year}</Text>
-                <Text>Type: {item.type}</Text>
-                <Text>IMDb Number: {item.imdb}</Text>
-            </TouchableOpacity>)
         return (
-            // ScrollView is slow loading. How can I improve this?
-            < ScrollView style={styles.appContainer} >
-                <Text style={styles.error}>{this.state.err}</Text>
+            <View style={styles.appContainer}>
                 <Text style={styles.search}>Search: {JSON.stringify(this.props.navigation.getParam('search', 'no-search'))}</Text>
-                {items}
+                <Text style={styles.error}>{this.state.err}</Text>
+                < NoResults results={this.state.results} />
+                {this.state.loading && <Text>Loading...</Text>}
 
-                <Button
-                    title="Go back"
-                    onPress={() => this.props.navigation.goBack()}
-                />
-            </ScrollView>
 
+                <FlatList
+                    keyExtractor={this.keyExtractor}
+                    data={this.state.results}
+                    renderItem={({ item }) => (
+                        < TouchableOpacity
+                            style={styles.eachMovie}
+                            onPress={() => this.onSelectMovie(item)}
+                            key={i} >
+                            <Text style={styles.data}>Title: {item.title}</Text>
+                            <Text style={styles.data}>Year: {item.year}</Text>
+                            <Text style={styles.data}>Type: {item.type}</Text>
+                            <Text style={styles.data}>IMDb Number: {item.imdb}</Text>
+                        </TouchableOpacity >
+                    )} />
+
+            </View>
         )
     }
 }
@@ -127,10 +152,14 @@ const styles = StyleSheet.create({
         color: 'red'
     },
     eachMovie: {
-        fontSize: 12,
         padding: 5,
         margin: 5,
         borderWidth: 1,
         borderColor: 'black',
+        backgroundColor: 'white'
+    },
+    data: {
+        fontSize: 18,
+        paddingVertical: 2,
     }
 })

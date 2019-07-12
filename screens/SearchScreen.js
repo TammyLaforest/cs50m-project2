@@ -3,7 +3,7 @@ import Constants from 'expo-constants'
 import { Button, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 'react-native'
 
 let apiKey = '58e46ddd'
-// let apiKey = [apiKey]
+
 
 export default class SearchScreen extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export default class SearchScreen extends React.Component {
     }
 
     handleSubmit = () => {
-        let cleanedSearch = this.state.search.replace(/\s/g, '+').toLowerCase()
+        let cleanedSearch = this.state.search.trim().replace(/\s/g, '+').toLowerCase()
         let newUrl = `http://www.omdbapi.com/?apikey=${apiKey}&s=${cleanedSearch}`
         this.setState({
             apiUrl: newUrl
@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderRadius: 3,
-        fontSize: 24
+        fontSize: 24,
+        marginBottom: 20,
+        textAlign: 'center'
     },
 })
 

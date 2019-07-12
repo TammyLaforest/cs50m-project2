@@ -89,12 +89,14 @@ export default class DetailScreen extends React.Component {
 
         return (
             <ScrollView style={styles.appContainer} >
-                < ShowImage poster={this.state.poster} />
-                {manageData}
                 < Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
                 />
+                <View style={styles.manageData}>
+                    {manageData}
+                </View>
+                < ShowImage poster={this.state.poster} />
             </ScrollView >
         )
     }
@@ -117,6 +119,11 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    manageData: {
+        backgroundColor: 'white',
+        margin: 5,
+        padding: 5,
     }
 })
 
