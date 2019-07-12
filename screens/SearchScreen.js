@@ -4,7 +4,6 @@ import { Button, KeyboardAvoidingView, StyleSheet, Text, TextInput, View } from 
 
 let apiKey = '58e46ddd'
 
-
 export default class SearchScreen extends React.Component {
     constructor(props) {
         super(props)

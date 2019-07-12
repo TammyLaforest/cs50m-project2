@@ -2,11 +2,9 @@ import React from 'react'
 import Constants from 'expo-constants'
 import { Button, FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
-
 // Sister Act has 1 page
 // Mulan has 2 pages
 // Batman has 37 pages
-
 
 const processTitle = movie => ({
     title: movie.Title,
@@ -26,8 +24,6 @@ const callApiPages = async (url) => {
         console.log('nope')
     }
 }
-
-
 const callApi = async (url) => {
     try {
         const response = await fetch(`${url}`)
@@ -50,9 +46,8 @@ const callApi = async (url) => {
 
 class NoResults extends React.Component {
     render() {
-        console.log(this.props.results)
-        if (this.props.results.length < 1) { return (<Text> No Results</Text>) }
-
+        // console.log(this.props.results)
+        if (this.props.results.length < 1 && !this.props.loading) { return (<Text> No Results</Text>) }
         else { return null }
     }
 }
@@ -64,8 +59,7 @@ export default class ResultsScreen extends React.Component {
             err: '',
             results: [],
             pages: 0,
-            loading: true,
-            // activeResults: true
+            loading: true
         }
     }
     static navigationOptions = {
@@ -84,21 +78,16 @@ export default class ResultsScreen extends React.Component {
         }
     }
 
-
-
-
     componentWillMount() {
         this.getResults()
         this.timeout()
     }
 
-
-
     timeout = () => setTimeout(() => {
         this.setState({
             loading: false,
         });
-    }, 2000)
+    }, 2500)
 
     keyExtractor = (item, index) => index.toString()
 
@@ -114,9 +103,8 @@ export default class ResultsScreen extends React.Component {
             <View style={styles.appContainer}>
                 <Text style={styles.search}>Search: {JSON.stringify(this.props.navigation.getParam('search', 'no-search'))}</Text>
                 <Text style={styles.error}>{this.state.err}</Text>
-                < NoResults results={this.state.results} />
+                < NoResults results={this.state.results} loading={this.state.loading} />
                 {this.state.loading && <Text>Loading...</Text>}
-
 
                 <FlatList
                     keyExtractor={this.keyExtractor}
@@ -132,7 +120,6 @@ export default class ResultsScreen extends React.Component {
                             <Text style={styles.data}>IMDb Number: {item.imdb}</Text>
                         </TouchableOpacity >
                     )} />
-
             </View>
         )
     }

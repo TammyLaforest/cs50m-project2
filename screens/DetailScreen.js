@@ -1,6 +1,7 @@
 import React from 'react'
 import Constants from 'expo-constants'
-import { Button, Image, ScrollView, StyleSheet, View, Text } from 'react-native'
+import { Button, Image, Platform, ScrollView, StyleSheet, View, Text } from 'react-native'
+
 
 const processDetails = (movie) => ({
     Title: movie.Title,
@@ -21,7 +22,7 @@ const processDetails = (movie) => ({
 
 class ShowImage extends React.Component {
     render() {
-        if (this.props.poster != "N/A" && this.props.poster != "") {
+        if (Platform.OS === 'ios' && this.props.poster != "N/A" && this.props.poster != "") {
             return (
                 <View style={styles.imageView}>
                     <Image
@@ -89,14 +90,16 @@ export default class DetailScreen extends React.Component {
 
         return (
             <ScrollView style={styles.appContainer} >
-                < Button
+                {/* < Button
                     title="Go back"
                     onPress={() => this.props.navigation.goBack()}
-                />
+                /> */}
+
+                < ShowImage poster={this.state.poster} />
                 <View style={styles.manageData}>
                     {manageData}
                 </View>
-                < ShowImage poster={this.state.poster} />
+
             </ScrollView >
         )
     }
